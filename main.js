@@ -6,124 +6,121 @@ var searchElement = document.getElementById("search-input");
 var eventsPage = document.getElementById("events-page");
 var finalPage = document.getElementById("final-page");
 var searchValue;
+var searchValueNew;
+var maxLoops = 6;
 
-var comicText1 = document.getElementById("comic-name-text1");
-var comicText2 = document.getElementById("comic-name-text2");
-var comicText3 = document.getElementById("comic-name-text3");
-var comicText4 = document.getElementById("comic-name-text4");
-var comicText5 = document.getElementById("comic-name-text5");
-var comicText6 = document.getElementById("comic-name-text6");
-var dateText1 = document.getElementById("date-text1");
-var dateText2 = document.getElementById("date-text2");
-var dateText3 = document.getElementById("date-text3");
-var dateText4 = document.getElementById("date-text4");
-var dateText5 = document.getElementById("date-text5");
-var dateText6 = document.getElementById("date-text6");
-var chooseEventButton1 = document.getElementById("choose-event1");
-var chooseEventButton2 = document.getElementById("choose-event2");
-var chooseEventButton3 = document.getElementById("choose-event3");
-var chooseEventButton4 = document.getElementById("choose-event4");
-var chooseEventButton5 = document.getElementById("choose-event5");
-var chooseEventButton6 = document.getElementById("choose-event6");
+var comicText;
+var dateText;
 
 var finalName = document.getElementById("final-name");
 var finalDate = document.getElementById("final-date");
 var finalTime = document.getElementById("final-time");
 var finalLocation = document.getElementById("final-location");
-
-
+var ticketLinkElement = document.getElementById("ticket-link");
+var mapsElement = document.getElementById("maps");
+var finalEventImage = document.getElementById("final-event-image");
+var venueName;
+var venueNameNew;
 
 
 searchButton.addEventListener("click", searchEvent);
 function searchEvent() {
-  searchPage.classList.add("hidden");
-  eventsPage.classList.remove("hidden");
   searchValue = searchElement.value;
   $.ajax({
     dataType: "json",
     url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&startDateTime=2020-08-05T17:59:00Z&endDateTime=2020-12-31T17:59:00Z&city=' + searchValue,
     method: 'GET',
-    success: handleEventsSuccess,
-    error: console.log
+    success: handleEventsErrorCheck,
+    error: handleEventsErrorCheck
   })
 }
 
+function handleEventsErrorCheck(events) {
+  if (!events._embedded) {
+    alert("Please choose a different city");
+    searchElement.value = "";
+  } else {
+    dataObj = events;
+    handleEventsSuccess(events);
+  }
+}
 
+
+function searchValueSpaces(searchValue) {
+  searchValueNew = searchValue.replace(/ /g, "+");
+}
 
 function handleEventsSuccess(events) {
   console.log(events);
-  dataObj = events;
-  comicText1.textContent = events._embedded.events[0]._embedded.attractions[0].name;
-  dateText1.textContent = events._embedded.events[0].dates.start.localDate;
-  comicText2.textContent = events._embedded.events[1]._embedded.attractions[0].name;
-  dateText2.textContent = events._embedded.events[1].dates.start.localDate;
-  comicText3.textContent = events._embedded.events[2]._embedded.attractions[0].name;
-  dateText3.textContent = events._embedded.events[2].dates.start.localDate;
-  comicText4.textContent = events._embedded.events[3]._embedded.attractions[0].name;
-  dateText4.textContent = events._embedded.events[3].dates.start.localDate;
-  comicText5.textContent = events._embedded.events[4]._embedded.attractions[0].name;
-  dateText5.textContent = events._embedded.events[4].dates.start.localDate;
-  comicText6.textContent = events._embedded.events[5]._embedded.attractions[0].name;
-  dateText6.textContent = events._embedded.events[5].dates.start.localDate;
-  chooseEventButton1.addEventListener("click", function() {
-    eventEvent1(dataObj)});
-  chooseEventButton2.addEventListener("click", function() {
-    eventEvent2(dataObj)});
-  chooseEventButton3.addEventListener("click", function() {
-    eventEvent3(dataObj)});
-  chooseEventButton4.addEventListener("click", function() {
-    eventEvent4(dataObj)});
-  chooseEventButton5.addEventListener("click", function() {
-    eventEvent5(dataObj)});
-  chooseEventButton6.addEventListener("click", function() {
-    eventEvent6(dataObj)});
+  searchPage.classList.add("hidden");
+  eventsPage.classList.remove("hidden");
+  searchValueSpaces(searchValue);
+  displayEvents();
+  console.log(maxLoops);
+  for (var i = 0; i < maxLoops; i++) {
+    comicText = document.getElementById("comic-name-text" + (i+1));
+    comicText.textContent = events._embedded.events[i]._embedded.attractions[0].name;
+    dateText = document.getElementById("date-text" + (i+1));
+    dateText.textContent = events._embedded.events[i].dates.start.localDate;
+  }
 }
 
-function eventEvent1(dataObj) {
-  eventsPage.classList.add("hidden");
-  finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[0]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[0].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[0].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[0]._embedded.venues[0].name;
+function displayEvents() {
+  if (dataObj._embedded.events.length < 6) {
+    maxLoops = dataObj._embedded.events.length;
+  }
+  for (var i = 0; i < maxLoops; i++) {
+    var row = document.createElement("div");
+    row.setAttribute("class", "row pt-4 ml-1");
+    eventsPage.appendChild(row);
+    var col1 = document.createElement("div");
+    col1.setAttribute("class", "col");
+    row.appendChild(col1);
+    var p1 = document.createElement("p");
+    var addI = i + 1;
+    var nameId = "comic-name-text" + addI;
+    p1.setAttribute("id", nameId);
+    col1.appendChild(p1);
+    var p2 = document.createElement("p");
+    var dateId = "date-text" + addI;
+    p2.setAttribute("id", dateId);
+    col1.appendChild(p2);
+
+    var col2 = document.createElement("div");
+    col2.setAttribute("class", "col pt-2");
+    row.appendChild(col2);
+    var btn = document.createElement("button");
+    var btnId = "choose-event" + addI;
+    btn.setAttribute("id", btnId);
+    btn.setAttribute("type", "button");
+    btn.setAttribute("class", "btn btn-primary");
+    btn.setAttribute("index", i);
+    btn.textContent = "Choose Event";
+    btn.addEventListener("click", function(event) {
+      var btnIndex = event.target.getAttribute("index");
+      finalPageEvent(btnIndex, dataObj);
+      console.log(btnIndex, dataObj);
+    });
+    col2.appendChild(btn);
+  }
 }
-function eventEvent2(eventsObj) {
-  eventsPage.classList.add("hidden");
-  finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[1]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[1].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[1].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[1]._embedded.venues[0].name;
+
+
+function venueSpaces(venueName) {
+  venueNameNew = venueName.replace(/ /g, "+");
 }
-function eventEvent3(eventsObj) {
+
+
+function finalPageEvent(i, dataObj) {
   eventsPage.classList.add("hidden");
   finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[2]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[2].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[2].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[2]._embedded.venues[0].name;
-}
-function eventEvent4(eventsObj) {
-  eventsPage.classList.add("hidden");
-  finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[3]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[3].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[3].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[3]._embedded.venues[0].name;
-}
-function eventEvent5(eventsObj) {
-  eventsPage.classList.add("hidden");
-  finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[4]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[4].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[4].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[4]._embedded.venues[0].name;
-}
-function eventEvent6(eventsObj) {
-  eventsPage.classList.add("hidden");
-  finalPage.classList.remove("hidden");
-  finalName.textContent = dataObj._embedded.events[5]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[5].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[5].dates.start.localTime;
-  finalLocation.textContent = dataObj._embedded.events[5]._embedded.venues[0].name;
+  finalName.textContent = dataObj._embedded.events[i]._embedded.attractions[0].name;
+  finalDate.textContent = dataObj._embedded.events[i].dates.start.localDate;
+  finalTime.textContent = dataObj._embedded.events[i].dates.start.localTime;
+  venueName = dataObj._embedded.events[i]._embedded.venues[0].name;
+  finalLocation.textContent = venueName;
+  venueSpaces(venueName);
+  ticketLinkElement.setAttribute("href", dataObj._embedded.events[i].url);
+  mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAQoF_dYg3u7HEQ4rDWwedyML_11N9feeQ&q=" + searchValueNew + "," + venueNameNew;
+  finalEventImage.src = dataObj._embedded.events[i].images[0].url;
 }
