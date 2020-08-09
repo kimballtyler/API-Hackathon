@@ -51,12 +51,10 @@ function searchValueSpaces(searchValue) {
 }
 
 function handleEventsSuccess(events) {
-  console.log(events);
   searchPage.classList.add("hidden");
   eventsPage.classList.remove("hidden");
   searchValueSpaces(searchValue);
   displayEvents();
-  console.log(maxLoops);
   for (var i = 0; i < maxLoops; i++) {
     comicText = document.getElementById("comic-name-text" + (i+1));
     comicText.textContent = events._embedded.events[i]._embedded.attractions[0].name;
@@ -99,7 +97,6 @@ function displayEvents() {
     btn.addEventListener("click", function(event) {
       var btnIndex = event.target.getAttribute("index");
       finalPageEvent(btnIndex, dataObj);
-      console.log(btnIndex, dataObj);
     });
     col2.appendChild(btn);
   }

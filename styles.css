@@ -2,11 +2,6 @@ body, html {
     height: 100%;
 }
 
-#map {
-  height: 400px;
-  width: 400px;
-}
-
 .title {
   text-align: center;
   padding-top: 80px;
@@ -68,11 +63,6 @@ img {
 iframe {
   margin: auto;
 }
-
-
-
-/* https://images.yourdailydish.com/wp-content/uploads/2018/08/09123728/comics-triple-split.jpg */
-/* https://s1.ticketm.net/dam/a/e09/07e27093-35d8-4774-9882-9c6a3e4b9e09_1084751_TABLET_LANDSCAPE_LARGE_16_9.jpg */
 
 .hidden {
   display: none;
