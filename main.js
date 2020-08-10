@@ -1,10 +1,14 @@
 var dataObj;
 
 var searchButton = document.getElementById("search-button");
+var loadingButton = document.getElementById("loading-button");
 var searchPage = document.getElementById("search-page");
 var searchElement = document.getElementById("search-input");
 var eventsPage = document.getElementById("events-page");
 var finalPage = document.getElementById("final-page");
+var modalOverlay = document.getElementById("modal-overlay");
+var modalButton = document.getElementById("modal-button");
+var modalHeader = document.getElementById("modal-header");
 var searchValue;
 var searchValueNew;
 var maxLoops = 6;
@@ -28,35 +32,53 @@ function searchEvent() {
   searchValue = searchElement.value;
   $.ajax({
     dataType: "json",
-    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&startDateTime=2020-08-05T17:59:00Z&endDateTime=2020-12-31T17:59:00Z&city=' + searchValue,
+    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&city=' + searchValue,
     method: 'GET',
     success: handleEventsErrorCheck,
-    error: handleEventsErrorCheck
+    error: handleEventsError
   })
 }
 
 function handleEventsErrorCheck(events) {
   if (!events._embedded) {
-    alert("Please choose a different city");
+    modalHeader.textContent = "Please Choose a Different City.";
+    modalOverlay.classList.remove("hidden");
     searchElement.value = "";
+  } else if (searchValue === "") {
   } else {
+    console.log(events);
+    searchButton.classList.add("hidden");
+    loadingButton.classList.remove("hidden");
     dataObj = events;
-    handleEventsSuccess(events);
+    setTimeout(function() {
+      handleEventsSuccess(events);
+    }, 1000);
   }
 }
 
+function handleEventsError() {
+  modalOverlay.classList.remove("hidden");
+  modalHeader.textContent = "Could not connect to the server, try again later.";
+}
+
+modalButton.addEventListener("click", function() {
+  modalOverlay.classList.add("hidden");
+  searchElement.value = "";
+})
 
 function searchValueSpaces(searchValue) {
   searchValueNew = searchValue.replace(/ /g, "+");
 }
 
+
+
 function handleEventsSuccess(events) {
-  console.log(events);
+  searchButton.classList.remove("hidden");
+  loadingButton.classList.add("hidden");
   searchPage.classList.add("hidden");
   eventsPage.classList.remove("hidden");
   searchValueSpaces(searchValue);
   displayEvents();
-  console.log(maxLoops);
   for (var i = 0; i < maxLoops; i++) {
     comicText = document.getElementById("comic-name-text" + (i+1));
     comicText.textContent = events._embedded.events[i]._embedded.attractions[0].name;
@@ -71,7 +93,7 @@ function displayEvents() {
   }
   for (var i = 0; i < maxLoops; i++) {
     var row = document.createElement("div");
-    row.setAttribute("class", "row pt-4 ml-1");
+    row.setAttribute("class", "row pt-4 ml-1 text-center");
     eventsPage.appendChild(row);
     var col1 = document.createElement("div");
     col1.setAttribute("class", "col");
@@ -85,7 +107,6 @@ function displayEvents() {
     var dateId = "date-text" + addI;
     p2.setAttribute("id", dateId);
     col1.appendChild(p2);
-
     var col2 = document.createElement("div");
     col2.setAttribute("class", "col pt-2");
     row.appendChild(col2);
@@ -99,7 +120,6 @@ function displayEvents() {
     btn.addEventListener("click", function(event) {
       var btnIndex = event.target.getAttribute("index");
       finalPageEvent(btnIndex, dataObj);
-      console.log(btnIndex, dataObj);
     });
     col2.appendChild(btn);
   }
