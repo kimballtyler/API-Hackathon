@@ -22,7 +22,7 @@ Try the application live at [https://kimballtyler.github.io/api-hackathon/](http
 
 ## Preview
 
-![SGT React](assets/sgt_react.gif)
+![API Hackathon Preview](api-hackathon.gif)
 
 ## Development
 
