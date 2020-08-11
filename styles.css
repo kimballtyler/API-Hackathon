@@ -53,6 +53,10 @@ img {
   margin: auto;
 }
 
+.event-image img {
+  height: 170px;
+}
+
 .final-page p {
   text-align: center;
   margin: 8px;
@@ -61,6 +65,8 @@ img {
 
 .map {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 iframe {
