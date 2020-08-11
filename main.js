@@ -27,7 +27,6 @@ var finalEventImage = document.getElementById("final-event-image");
 var venueName;
 var venueNameNew;
 
-
 searchForm.addEventListener("submit", searchEvent);
 function searchEvent(event) {
   event.preventDefault();
@@ -138,11 +137,9 @@ function displayEvents() {
   }
 }
 
-
 function venueSpaces(venueName) {
   venueNameNew = venueName.replace(/ /g, "+");
 }
-
 
 function finalPageEvent(i, dataObj) {
   eventsPage.classList.add("hidden");
