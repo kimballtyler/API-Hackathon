@@ -1,5 +1,6 @@
 # comedy-event-finder
-A hackathon project utilizing the data from two public APIs to create an application.
+A hackathon project utilizing the data from the Ticketmaster and Google Maps API's.
+Created a stand-up comedy event finder application.
 
 ## Technologies Used
 
