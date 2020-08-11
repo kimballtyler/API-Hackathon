@@ -3,7 +3,6 @@ body, html {
     background-color: rgb(70, 70, 70);
 }
 
-
 .title {
   text-align: center;
   padding-top: 80px;
@@ -23,7 +22,6 @@ body, html {
 input {
   text-align: center;
 }
-
 
 .events-page {
   min-height: 100%;
@@ -103,8 +101,6 @@ iframe {
     width: 50%;
     }
   }
-
-
 
 .hidden {
   display: none;
