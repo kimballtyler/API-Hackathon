@@ -83,15 +83,19 @@ iframe {
   font-size: 3.5rem;
   margin: auto;
   text-align: center;
-  height: 150px;
+  height: 300px;
   justify-content: center;
-  margin-top: 100px;
   border: gray solid 5px;
+  text-align: center;
 }
 
 .modal-header {
-  padding-top: 100px;
+  padding-bottom: 30px;
   justify-content: center;
+}
+
+.modal-content button {
+  width: 70px;
 }
 
 @media screen and (min-width: 700px) {
