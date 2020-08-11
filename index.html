@@ -20,9 +20,9 @@
   <div class="row">
     <div class="col hero-text">
       <h2 class="title mb-5">Stand-Up Comedy Event Finder</h2>
-      <form class="text-center">
+      <form id="search-form" class="text-center">
         <input class="form-control-lg mr-1 mb-2" type="text" id="search-input" name="search" placeholder="Enter Major US City"></input>
-        <button id="search-button" type="button" class="btn btn-primary btn-lg">Search</button>
+        <button id="search-button" type="submit" class="btn btn-primary btn-lg">Search</button>
         <button id="loading-button" class="btn btn-primary hidden btn-lg" type="button" disabled>
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
           Loading...
@@ -62,10 +62,10 @@
 
 
 <div id="modal-overlay" class="modal-overlay hidden">
-  <div id="modal-content" class="modal-content">
-    <h2 id="modal-header" class="modal-header">Please Choose a Different City.</h2>
+  <div id="modal-content" class="modal-content d-flex">
+    <h2 id="modal-header" class="modal-header">No results were found, please try a different city.</h2>
     <div>
-      <button class="btn btn-primary" id="modal-button">OK</button>
+      <button class="btn btn-primary btn-sm" id="modal-button">OK</button>
     </div>
   </div>
 </div>

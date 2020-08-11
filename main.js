@@ -4,6 +4,7 @@ var searchButton = document.getElementById("search-button");
 var loadingButton = document.getElementById("loading-button");
 var searchPage = document.getElementById("search-page");
 var searchElement = document.getElementById("search-input");
+var searchForm = document.getElementById("search-form");
 var eventsPage = document.getElementById("events-page");
 var finalPage = document.getElementById("final-page");
 var modalOverlay = document.getElementById("modal-overlay");
@@ -27,8 +28,9 @@ var venueName;
 var venueNameNew;
 
 
-searchButton.addEventListener("click", searchEvent);
-function searchEvent() {
+searchForm.addEventListener("submit", searchEvent);
+function searchEvent(event) {
+  event.preventDefault();
   searchValue = searchElement.value;
   $.ajax({
     dataType: "json",
@@ -41,7 +43,7 @@ function searchEvent() {
 
 function handleEventsErrorCheck(events) {
   if (!events._embedded) {
-    modalHeader.textContent = "Please Choose a Different City.";
+    modalHeader.textContent = "No results were found, please try a different city.";
     modalOverlay.classList.remove("hidden");
     searchElement.value = "";
   } else if (searchValue === "") {
