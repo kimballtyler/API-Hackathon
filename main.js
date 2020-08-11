@@ -10,6 +10,8 @@ var finalPage = document.getElementById("final-page");
 var modalOverlay = document.getElementById("modal-overlay");
 var modalButton = document.getElementById("modal-button");
 var modalHeader = document.getElementById("modal-header");
+var homeIcon = document.getElementById("home-icon");
+var homeIcon2 = document.getElementById("home-icon2");
 var searchValue;
 var searchValueNew;
 var maxLoops = 6;
@@ -47,6 +49,7 @@ function handleEventsErrorCheck(events) {
     searchElement.value = "";
   } else if (searchValue === "") {
   } else {
+    searchElement.value = "";
     searchButton.classList.add("hidden");
     loadingButton.classList.remove("hidden");
     dataObj = events;
@@ -140,6 +143,16 @@ function displayEvents() {
 function venueSpaces(venueName) {
   venueNameNew = venueName.replace(/ /g, "+");
 }
+
+homeIcon.addEventListener("click", function() {
+  searchPage.classList.remove("hidden");
+  eventsPage.classList.add("hidden");
+});
+
+homeIcon2.addEventListener("click", function () {
+  searchPage.classList.remove("hidden");
+  finalPage.classList.add("hidden");
+});
 
 function finalPageEvent(i, dataObj) {
   eventsPage.classList.add("hidden");
