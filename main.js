@@ -48,12 +48,12 @@ function handleEventsErrorCheck(events) {
     searchElement.value = "";
   } else if (searchValue === "") {
   } else {
-    console.log(events);
     searchButton.classList.add("hidden");
     loadingButton.classList.remove("hidden");
     dataObj = events;
+    eventsWithoutAttractions(dataObj);
     setTimeout(function() {
-      handleEventsSuccess(events);
+      handleEventsSuccess(dataObj);
     }, 1000);
   }
 }
@@ -72,9 +72,23 @@ function searchValueSpaces(searchValue) {
   searchValueNew = searchValue.replace(/ /g, "+");
 }
 
+function maxLoopsDefine() {
+  if (dataObj._embedded.events.length < 6) {
+    maxLoops = dataObj._embedded.events.length;
+  }
+}
 
+function eventsWithoutAttractions(dataObj) {
+  for (var i = 0; i < maxLoops; i++) {
+    if (!dataObj._embedded.events[i]._embedded.attractions) {
+      dataObj._embedded.events.splice(i, 1);
+      i--;
+      maxLoopsDefine();
+    }
+  }
+}
 
-function handleEventsSuccess(events) {
+function handleEventsSuccess(dataObj) {
   searchButton.classList.remove("hidden");
   loadingButton.classList.add("hidden");
   searchPage.classList.add("hidden");
@@ -83,16 +97,13 @@ function handleEventsSuccess(events) {
   displayEvents();
   for (var i = 0; i < maxLoops; i++) {
     comicText = document.getElementById("comic-name-text" + (i+1));
-    comicText.textContent = events._embedded.events[i]._embedded.attractions[0].name;
+    comicText.textContent = dataObj._embedded.events[i]._embedded.attractions[0].name;
     dateText = document.getElementById("date-text" + (i+1));
-    dateText.textContent = events._embedded.events[i].dates.start.localDate;
+    dateText.textContent = dataObj._embedded.events[i].dates.start.localDate;
   }
 }
 
 function displayEvents() {
-  if (dataObj._embedded.events.length < 6) {
-    maxLoops = dataObj._embedded.events.length;
-  }
   for (var i = 0; i < maxLoops; i++) {
     var row = document.createElement("div");
     row.setAttribute("class", "row pt-4 ml-1 text-center");
