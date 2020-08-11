@@ -29,8 +29,23 @@ input {
   color: white;
 }
 
-img {
+.home {
+  position: relative;
+  top: -14px;
+  left: 12px;
+  cursor: pointer;
+}
+
+.home2 {
+  position: relative;
+  top: 11px;
+  left: 2px;
+  cursor: pointer;
+}
+
+.events-page img {
   margin: auto;
+  margin-top: 10px;
 }
 
 .events-page p {
@@ -105,8 +120,23 @@ iframe {
 @media screen and (min-width: 700px) {
   .modal-content {
     width: 50%;
-    }
   }
+}
+
+@media screen and (min-width: 500px) {
+  .fas {
+    left: 140px;
+  }
+  .home {
+    top: -11px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .fas {
+    left: 370px;
+  }
+}
 
 .hidden {
   display: none;
