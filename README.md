@@ -32,7 +32,7 @@ Try the application live at [https://kimballtyler.github.io/comedy-event-finder/
 
     ```shell
     git clone https://github.com/kimballtyler/comedy-event-finder.git
-    cd api-hackathon
+    cd comedy-event-finder
     ```
 
 1. Start the project. Once started you can view the application by opening your `index.html` file in your browser.
