@@ -1,4 +1,4 @@
-# api-hackathon
+# comedy-event-finder
 A hackathon project utilizing the data from two public APIs to create an application.
 
 ## Technologies Used
@@ -11,7 +11,7 @@ A hackathon project utilizing the data from two public APIs to create an applica
 
 ## Live Demo
 
-Try the application live at [https://kimballtyler.github.io/api-hackathon/](https://kimballtyler.github.io/api-hackathon/)
+Try the application live at [https://kimballtyler.github.io/comedy-event-finder/](https://kimballtyler.github.io/comedy-event-finder/)
 
 ## Features
 
@@ -31,7 +31,7 @@ Try the application live at [https://kimballtyler.github.io/api-hackathon/](http
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/kimballtyler/api-hackathon.git
+    git clone https://github.com/kimballtyler/comedy-event-finder.git
     cd api-hackathon
     ```
 
