@@ -4,39 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>API Hackathon</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap-grid.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div id="search-page" class="container search-page hero-image">
-  <div class="row">
-    <div class="col hero-text">
-      <h2 class="title mb-5">Stand-Up Comedy Event Finder</h2>
-      <form id="search-form" class="text-center">
-        <input class="form-control-lg mr-1 mb-2" type="text" id="search-input" name="search" placeholder="Enter Major US City"></input>
-        <button id="search-button" type="submit" class="btn btn-primary btn-lg">Search</button>
-        <button id="loading-button" class="btn btn-primary hidden btn-lg" type="button" disabled>
-          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-          Loading...
-        </button>
-      </form>
+<div id="search-page" class="container-fluid search-page hero-image">
+  <div class="row mb-2">
+    <div class="col-12 hero-text">
+      <h2 class="title">Stand-Up Comedy Event Finder</h2>
     </div>
   </div>
-</div>
+    <div class="row mb-1">
+      <div class="col-12 align-items-center d-flex justify-content-center">
+        <form id="search-form" class="text-center">
+          <input class="form-control-lg mr-1 mb-2" type="text" id="search-input" name="search" placeholder="Enter Major US City"> <br>
+          <button id="search-button" type="submit" class="btn btn-secondary btn-lg">Search</button>
+          <button id="loading-button" class="btn btn-secondary hidden btn-lg" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
-<div id="events-page" class="container pt-4 events-page hidden">
+<div id="events-page" class="container-fluid pt-2 events-page hidden">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <i id="home-icon" class="fas fa-home fa-2x home"></i>
+    </div>
+  </div>
   <div class="row events-img">
-    <i id="home-icon" class="fas fa-home fa-lg home"></i>
-    <img src="https://images.yourdailydish.com/wp-content/uploads/2018/08/09123728/comics-triple-split.jpg"
-    alt="Comedians" width="350" height="170">
+    <div class="col-12 d-flex justify-content-center">
+      <img src="https://images.yourdailydish.com/wp-content/uploads/2018/08/09123728/comics-triple-split.jpg"
+      alt="Comedians" width="350" height="170">
+    </div>
+  </div>
+  <div id="events-row-container">
+
   </div>
 </div>
 
 <div id="final-page" class="container final-page hidden">
-  <i id="home-icon2" class="fas fa-home fa-lg home2"></i>
+  <div class="col-12 d-flex justify-content-center mt-2">
+    <i id="back-button" class="fas fa-arrow-circle-left fa-2x mr-1"></i>
+    <i id="home-icon2" class="fas fa-home fa-2x home2 ml-1"></i>
+  </div>
   <div class="row">
     <div class="col event-image mt-3 text-center">
       <img id="final-event-image" src="" alt="Comedians">
@@ -46,7 +61,7 @@
       <p id="final-location">Location</p>
       <p><a id="ticket-link" href="" target="_blank">Click Here For Tickets</a></p>
     <div class="map">
-      <iframe id="maps" width="360" height="290" frameborder="0" style="border:0" src="" allowfullscreen>
+      <iframe class="mb-2" id="maps" width="360" height="290" frameborder="0" style="border:0" src="" allowfullscreen>
       </iframe>
     </div>
     </div>
