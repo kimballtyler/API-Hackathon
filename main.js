@@ -15,11 +15,13 @@ var homeIcon2 = document.getElementById("home-icon2");
 var backButton = document.getElementById("back-button");
 var searchValue;
 var searchValueNew;
+var searchValueSave;
 var maxLoops;
 
 var comicText;
 var dateText;
 
+var cityText = document.getElementById("city-text");
 var finalName = document.getElementById("final-name");
 var finalDate = document.getElementById("final-date");
 var finalTime = document.getElementById("final-time");
@@ -34,6 +36,7 @@ searchForm.addEventListener("submit", searchEvent);
 function searchEvent(event) {
   event.preventDefault();
   searchValue = searchElement.value;
+  searchValueSave = searchElement.value;
   $.ajax({
     dataType: "json",
     url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&city=' + searchValue,
@@ -97,11 +100,12 @@ function handleEventsSuccess(dataObj) {
   eventsPage.classList.remove("hidden");
   searchValueSpaces(searchValue);
   displayEvents();
+  cityText.textContent = searchValueSave.toUpperCase();
   for (var i = 0; i < maxLoops; i++) {
     comicText = document.getElementById("comic-name-text" + (i+1));
     comicText.textContent = dataObj._embedded.events[i]._embedded.attractions[0].name;
     dateText = document.getElementById("date-text" + (i+1));
-    dateText.textContent = dataObj._embedded.events[i].dates.start.localDate;
+    dateText.textContent = Date.parse(dataObj._embedded.events[i].dates.start.localDate).toString("MMM-d-yyyy");
   }
 }
 
@@ -112,7 +116,7 @@ function displayEvents() {
     row.setAttribute("class", "row pt-3 pb-2 text-center d-flex justify-content-center");
     document.getElementById("events-row-container").appendChild(row);
     var col1 = document.createElement("div");
-    col1.setAttribute("class", "col-sm-3  lg-2 xl-1 col-6 pl-0");
+    col1.setAttribute("class", "col-sm-3 col-lg-2 col-6 pl-0");
     row.appendChild(col1);
     var p1 = document.createElement("p");
     var addI = i + 1;
@@ -123,10 +127,11 @@ function displayEvents() {
     var dateId = "date-text" + addI;
     p2.setAttribute("id", dateId);
     p1.style.fontSize = "1.2rem";
+    p1.style.fontWeight = "700";
     p2.style.fontSize = "1.2rem";
     col1.appendChild(p2);
     var col2 = document.createElement("div");
-    col2.setAttribute("class", "col-6 col-sm-3 lg-2 xl-1 pl-0 pt-1");
+    col2.setAttribute("class", "col-6 col-sm-3 col-lg-2 pl-0 pt-1");
     row.appendChild(col2);
     var btn = document.createElement("button");
     var btnId = "choose-event" + addI;
@@ -168,8 +173,8 @@ function finalPageEvent(i, dataObj) {
   eventsPage.classList.add("hidden");
   finalPage.classList.remove("hidden");
   finalName.textContent = dataObj._embedded.events[i]._embedded.attractions[0].name;
-  finalDate.textContent = dataObj._embedded.events[i].dates.start.localDate;
-  finalTime.textContent = dataObj._embedded.events[i].dates.start.localTime;
+  finalDate.textContent = Date.parse(dataObj._embedded.events[i].dates.start.localDate).toString("MMM-d-yyyy");
+  finalTime.textContent = Date.parse(dataObj._embedded.events[0].dates.start.localTime).toString("h:mm tt");
   venueName = dataObj._embedded.events[i]._embedded.venues[0].name;
   finalLocation.textContent = venueName;
   venueSpaces(venueName);
