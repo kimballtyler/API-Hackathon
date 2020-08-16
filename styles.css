@@ -49,6 +49,11 @@ input {
   margin-top: 10px;
 }
 
+.city-text {
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+
 .events-page p {
   margin: 0;
   padding: 0;
@@ -78,6 +83,10 @@ input {
   text-align: center;
   margin: 8px;
   padding: 0;
+}
+
+.final-name {
+  font-weight: 700;
 }
 
 .map {
@@ -131,6 +140,16 @@ iframe {
   }
   .home {
     top: -11px;
+  }
+  .form-control-lg {
+    margin-top: 50px;
+    height: 60px;
+    width: 350px;
+  }
+  .btn-secondary {
+    margin-top: 10px;
+    height: 50px;
+    width: 150px;
   }
 }
 

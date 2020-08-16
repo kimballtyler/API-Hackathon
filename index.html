@@ -11,15 +11,15 @@
 <body>
 
 <div id="search-page" class="container-fluid search-page hero-image">
-  <div class="row mb-2">
+  <div class="row mb-3">
     <div class="col-12 hero-text">
       <h2 class="title">Stand-Up Comedy Event Finder</h2>
     </div>
   </div>
-    <div class="row mb-1">
+    <div class="row">
       <div class="col-12 align-items-center d-flex justify-content-center">
         <form id="search-form" class="text-center">
-          <input class="form-control-lg mr-1 mb-2" type="text" id="search-input" name="search" placeholder="Enter Major US City"> <br>
+          <input class="form-control-lg mr-1 mb-3" type="text" id="search-input" name="search" placeholder="Enter Major US City"> <br>
           <button id="search-button" type="submit" class="btn btn-secondary btn-lg">Search</button>
           <button id="loading-button" class="btn btn-secondary hidden btn-lg" type="button" disabled>
             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
@@ -42,8 +42,12 @@
       alt="Comedians" width="350" height="170">
     </div>
   </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <p id="city-text" class="city-text"></p>
+    </div>
+  </div>
   <div id="events-row-container">
-
   </div>
 </div>
 
@@ -55,7 +59,7 @@
   <div class="row">
     <div class="col event-image mt-3 text-center">
       <img id="final-event-image" src="" alt="Comedians">
-      <p id="final-name" class="mt-3">Dave Chapelle</p>
+      <p id="final-name" class="mt-3 final-name">Dave Chapelle</p>
       <p id="final-date">Date</p>
       <p id="final-time">Time</p>
       <p id="final-location">Location</p>
@@ -77,6 +81,7 @@
   </div>
 </div>
 
+<script type="text/javascript" src="date.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
   <script src="main.js"></script>
 </body>
