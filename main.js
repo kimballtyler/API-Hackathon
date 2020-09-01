@@ -17,8 +17,6 @@ var searchValue;
 var searchValueNew;
 var searchValueSave;
 var maxLoops;
-var ticketMasterKey = config.ticketMasterKey;
-var googleKey = config.googleKey;
 
 var comicText;
 var dateText;
@@ -41,7 +39,7 @@ function searchEvent(event) {
   searchValueSave = searchElement.value;
   $.ajax({
     dataType: "json",
-    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketMasterKey + '&locale=*&classificationName=comedy&city=' + searchValue,
+    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&city=' + searchValue,
     method: 'GET',
     success: handleEventsErrorCheck,
     error: handleEventsError
@@ -60,7 +58,7 @@ function handleEventsErrorCheck(events) {
     loadingButton.classList.remove("hidden");
     dataObj = events;
     eventsWithoutAttractions(events);
-    setTimeout(function() {
+    setTimeout(function () {
       handleEventsSuccess(events);
     }, 1000);
   }
@@ -71,7 +69,7 @@ function handleEventsError() {
   modalHeader.textContent = "Could not connect to the server, try again later.";
 }
 
-modalButton.addEventListener("click", function() {
+modalButton.addEventListener("click", function () {
   modalOverlay.classList.add("hidden");
   searchElement.value = "";
 })
@@ -104,9 +102,9 @@ function handleEventsSuccess(dataObj) {
   displayEvents();
   cityText.textContent = searchValueSave.toUpperCase();
   for (var i = 0; i < maxLoops; i++) {
-    comicText = document.getElementById("comic-name-text" + (i+1));
+    comicText = document.getElementById("comic-name-text" + (i + 1));
     comicText.textContent = dataObj._embedded.events[i]._embedded.attractions[0].name;
-    dateText = document.getElementById("date-text" + (i+1));
+    dateText = document.getElementById("date-text" + (i + 1));
     dateText.textContent = Date.parse(dataObj._embedded.events[i].dates.start.localDate).toString("MMM-d-yyyy");
   }
 }
@@ -144,7 +142,7 @@ function displayEvents() {
     btn.textContent = "View Event";
     btn.style.color = "black";
     btn.style.boxShadow = "4px 9px 10px maroon";
-    btn.addEventListener("click", function(event) {
+    btn.addEventListener("click", function (event) {
       var btnIndex = event.target.getAttribute("index");
       finalPageEvent(btnIndex, dataObj);
     });
@@ -156,7 +154,7 @@ function venueSpaces(venueName) {
   venueNameNew = venueName.replace(/ /g, "+");
 }
 
-homeIcon.addEventListener("click", function() {
+homeIcon.addEventListener("click", function () {
   searchPage.classList.remove("hidden");
   eventsPage.classList.add("hidden");
 });
@@ -166,7 +164,7 @@ homeIcon2.addEventListener("click", function () {
   finalPage.classList.add("hidden");
 });
 
-backButton.addEventListener("click", function() {
+backButton.addEventListener("click", function () {
   eventsPage.classList.remove("hidden");
   finalPage.classList.add("hidden");
 });
@@ -181,6 +179,7 @@ function finalPageEvent(i, dataObj) {
   finalLocation.textContent = venueName;
   venueSpaces(venueName);
   ticketLinkElement.setAttribute("href", dataObj._embedded.events[i].url);
-  mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=" + googleKey + "&q=" + searchValueNew + "," + venueNameNew;
+  mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAQoF_dYg3u7HEQ4rDWwedyML_11N9feeQ&q=" + searchValueNew + "," + venueNameNew;
   finalEventImage.src = dataObj._embedded.events[i].images[0].url;
 }
+
