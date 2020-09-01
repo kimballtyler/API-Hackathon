@@ -22,7 +22,7 @@ Try the application live at [https://kimballtyler.github.io/comedy-event-finder/
 
 ## Preview
 
-![API Hackathon Preview](api-hackathon.gif)
+![API Hackathon Preview](app-demo.mp4)
 
 ## Development
 
