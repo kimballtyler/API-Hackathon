@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:image" content="api hackathon pic.PNG">
+  <meta property="og:image" content="/api hackathon pic.PNG">
   <title>Comedy Event Finder</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
@@ -11,79 +11,80 @@
 </head>
 <body>
 
-<div id="search-page" class="container-fluid search-page hero-image">
-  <div class="row mb-3">
-    <div class="col-12 hero-text">
-      <h2 class="title">Stand-Up Comedy Event Finder</h2>
+  <div id="search-page" class="container-fluid search-page hero-image">
+    <div class="row mb-3">
+      <div class="col-12 hero-text">
+        <h2 class="title">Stand-Up Comedy Event Finder</h2>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-12 align-items-center d-flex justify-content-center">
+          <form id="search-form" class="text-center">
+            <input class="form-control-lg mr-1 mb-3" type="text" id="search-input" name="search" placeholder="Enter Major US City"> <br>
+            <button id="search-button" type="submit" class="btn btn-secondary btn-lg">Search</button>
+            <button id="loading-button" class="btn btn-secondary hidden btn-lg" type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  <div id="events-page" class="container-fluid pt-2 events-page hidden">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+          <i id="home-icon" class="fas fa-home fa-2x home"></i>
+      </div>
+    </div>
+    <div class="row events-img">
+      <div class="col-12 d-flex justify-content-center">
+        <img src="https://images.yourdailydish.com/wp-content/uploads/2018/08/09123728/comics-triple-split.jpg"
+        alt="Comedians" width="350" height="170">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <p id="city-text" class="city-text"></p>
+      </div>
+    </div>
+    <div id="events-row-container">
     </div>
   </div>
+
+  <div id="final-page" class="container final-page hidden">
+    <div class="col-12 d-flex justify-content-center mt-2">
+      <i id="back-button" class="fas fa-arrow-circle-left fa-2x mr-1"></i>
+      <i id="home-icon2" class="fas fa-home fa-2x home2 ml-1"></i>
+    </div>
     <div class="row">
-      <div class="col-12 align-items-center d-flex justify-content-center">
-        <form id="search-form" class="text-center">
-          <input class="form-control-lg mr-1 mb-3" type="text" id="search-input" name="search" placeholder="Enter Major US City"> <br>
-          <button id="search-button" type="submit" class="btn btn-secondary btn-lg">Search</button>
-          <button id="loading-button" class="btn btn-secondary hidden btn-lg" type="button" disabled>
-            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-            Loading...
-          </button>
-        </form>
+      <div class="col event-image mt-3 text-center">
+        <img id="final-event-image" src="" alt="Comedians">
+        <p id="final-name" class="mt-3 final-name">Dave Chapelle</p>
+        <p id="final-date">Date</p>
+        <p id="final-time">Time</p>
+        <p id="final-location">Location</p>
+        <p><a id="ticket-link" href="" target="_blank">Click Here For Tickets</a></p>
+      <div class="map">
+        <iframe class="mb-2" id="maps" width="360" height="290" frameborder="0" style="border:0" src="" allowfullscreen>
+        </iframe>
+      </div>
       </div>
     </div>
   </div>
 
-<div id="events-page" class="container-fluid pt-2 events-page hidden">
-  <div class="row">
-    <div class="col-12 d-flex justify-content-center">
-        <i id="home-icon" class="fas fa-home fa-2x home"></i>
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="modal-content" class="modal-content d-flex">
+      <h2 id="modal-header" class="modal-header">No results were found, please try a different city.</h2>
+      <div>
+        <button class="btn btn-primary btn-sm" id="modal-button">OK</button>
+      </div>
     </div>
   </div>
-  <div class="row events-img">
-    <div class="col-12 d-flex justify-content-center">
-      <img src="https://images.yourdailydish.com/wp-content/uploads/2018/08/09123728/comics-triple-split.jpg"
-      alt="Comedians" width="350" height="170">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 d-flex justify-content-center">
-      <p id="city-text" class="city-text"></p>
-    </div>
-  </div>
-  <div id="events-row-container">
-  </div>
-</div>
 
-<div id="final-page" class="container final-page hidden">
-  <div class="col-12 d-flex justify-content-center mt-2">
-    <i id="back-button" class="fas fa-arrow-circle-left fa-2x mr-1"></i>
-    <i id="home-icon2" class="fas fa-home fa-2x home2 ml-1"></i>
-  </div>
-  <div class="row">
-    <div class="col event-image mt-3 text-center">
-      <img id="final-event-image" src="" alt="Comedians">
-      <p id="final-name" class="mt-3 final-name">Dave Chapelle</p>
-      <p id="final-date">Date</p>
-      <p id="final-time">Time</p>
-      <p id="final-location">Location</p>
-      <p><a id="ticket-link" href="" target="_blank">Click Here For Tickets</a></p>
-    <div class="map">
-      <iframe class="mb-2" id="maps" width="360" height="290" frameborder="0" style="border:0" src="" allowfullscreen>
-      </iframe>
-    </div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-overlay" class="modal-overlay hidden">
-  <div id="modal-content" class="modal-content d-flex">
-    <h2 id="modal-header" class="modal-header">No results were found, please try a different city.</h2>
-    <div>
-      <button class="btn btn-primary btn-sm" id="modal-button">OK</button>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript" src="date.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+  <script type="text/javascript" src="date.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+  <script type="text/javascript" src="config.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

@@ -17,6 +17,8 @@ var searchValue;
 var searchValueNew;
 var searchValueSave;
 var maxLoops;
+var ticketMasterKey = config.ticketMasterKey;
+var googleKey = config.googleKey;
 
 var comicText;
 var dateText;
@@ -39,7 +41,7 @@ function searchEvent(event) {
   searchValueSave = searchElement.value;
   $.ajax({
     dataType: "json",
-    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&city=' + searchValue,
+    url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketMasterKey + '&locale=*&classificationName=comedy&city=' + searchValue,
     method: 'GET',
     success: handleEventsErrorCheck,
     error: handleEventsError
@@ -179,6 +181,6 @@ function finalPageEvent(i, dataObj) {
   finalLocation.textContent = venueName;
   venueSpaces(venueName);
   ticketLinkElement.setAttribute("href", dataObj._embedded.events[i].url);
-  mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAQoF_dYg3u7HEQ4rDWwedyML_11N9feeQ&q=" + searchValueNew + "," + venueNameNew;
+  mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=" + googleKey + "&q=" + searchValueNew + "," + venueNameNew;
   finalEventImage.src = dataObj._embedded.events[i].images[0].url;
 }
