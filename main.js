@@ -37,6 +37,8 @@ function searchEvent(event) {
   event.preventDefault();
   searchValue = searchElement.value;
   searchValueSave = searchElement.value;
+  searchButton.classList.add("hidden");
+  loadingButton.classList.remove("hidden");
   $.ajax({
     dataType: "json",
     url: 'https://app.ticketmaster.com/discovery/v2/events?apikey=1kOFB5BhhOCVNaqEPsgmnJq0QqmiEWVr&locale=*&classificationName=comedy&city=' + searchValue,
@@ -52,15 +54,12 @@ function handleEventsErrorCheck(events) {
     modalOverlay.classList.remove("hidden");
     searchElement.value = "";
   } else if (searchValue === "") {
+    return;
   } else {
     searchElement.value = "";
-    searchButton.classList.add("hidden");
-    loadingButton.classList.remove("hidden");
     dataObj = events;
     eventsWithoutAttractions(events);
-    setTimeout(function () {
-      handleEventsSuccess(events);
-    }, 1000);
+    handleEventsSuccess(events);
   }
 }
 
@@ -182,4 +181,3 @@ function finalPageEvent(i, dataObj) {
   mapsElement.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAQoF_dYg3u7HEQ4rDWwedyML_11N9feeQ&q=" + searchValueNew + "," + venueNameNew;
   finalEventImage.src = dataObj._embedded.events[i].images[0].url;
 }
-
